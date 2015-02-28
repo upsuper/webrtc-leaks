@@ -31,9 +31,12 @@
       var mediaConstraints = {
         optional: [{RtpDataChannels: true}]
       };
-      var servers = {
-        iceServers: [{urls: "stun:stun.services.mozilla.com"}]
-      };
+      var servers;
+      if (win.webkitRTCPeerConnection) {
+        servers = {
+          iceServers: [{urls: "stun:stun.services.mozilla.com"}]
+        };
+      }
       var pc = new RTCPeerConnection(servers, mediaConstraints);
       pc.createDataChannel("");
       pc.createOffer(function (result) {
